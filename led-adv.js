@@ -3,8 +3,12 @@ const five = require("johnny-five");
 
 const express = require('express');
 const http = require('http');
+const os = require("os");
+const cors = require('cors');
 
 const app = express();
+
+app.use(cors())
 
 const server = http.createServer(app)
 const port = 5000
@@ -17,6 +21,8 @@ const board = new five.Board({
 });
 
 board.on("ready", () => {
+  console.log(`http://${os.networkInterfaces().wlan0[0].address}`);
+
   const led = new five.Led("a5");
   // led.on();
 
